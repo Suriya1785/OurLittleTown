@@ -25,4 +25,4 @@ Help Tourists and local people of temple town (Kumbokonam, India) to know about 
 - Provides list box and list down the tourist spot brief description with cost.
 
 # Credits
-- content provided by [flickr](https://flickr.com/), [wiki](http://www.wiki.com), [travelblog](https://www.travelblog.org), [tripadvisor](www.tripadvisor.in), [goibibo](https://www.goibibo.com)
+- content provided by [flickr](https://flickr.com/), [wiki](http://www.wiki.com), [travelblog](https://www.travelblog.org), [tripadvisor](www.tripadvisor.in), [goibibo](https://www.goibibo.com), [tamilnadutourism](http://tamilnadutourism.org)
