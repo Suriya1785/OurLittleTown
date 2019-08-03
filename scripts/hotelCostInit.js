@@ -60,13 +60,15 @@ window.onload = function() {
         let canRoomHold = canRoomHoldCustomer(roomType, selectNoOfAdults, selectNoOfChild, roomCostList);
 
         // validate user input and fire error message, otherwise proceed with calculation.
-        validateUserInput = checkNumeric(noOfNights, selectRoomTypeField, selectNoOfAdultsField, selectNoOfChildField, errorMsgIdField, canRoomHold);
+        validateUserInput = checkNumeric(noOfNights, selectRoomTypeField, selectNoOfAdultsField, inputCheckInDateField, errorMsgIdField, canRoomHold);
 
         if (!validateUserInput) {
+            // clear out the result (previously successful response), if there is an error in input validation.
             totalRoomCostField.innerHTML = " ";
             discountField.innerHTML = " ";
             taxField.innerHTML = " ";
             totalCostField.innerHTML = " ";
+            inclusiveDateField.innerHTML = " ";
         } else {
             // set discount Code
             if (inputRadioboxAAA) {
@@ -85,7 +87,7 @@ window.onload = function() {
             } else {
                 breakfastIncluded = false;
             }
-            // call following functions to calculate the cost
+            // call following functions to find out checkout date, room cost, breakfast cost, discount amount
             let checkoutDate = getCheckoutDate(inputCheckInDate, noOfNights)
             let roomCost = getRoomCost(roomType, inputCheckInDate, noOfNights, roomCostList);
             let breakfastCost = getBreakfastCost(noOfNights, discountCode, selectNoOfAdults, selectNoOfChild, breakfastIncluded);
@@ -228,7 +230,7 @@ function getDiscount(roomCost, discountCode, breakfastIncluded) {
 
 
 /* Function to calculate drop of date based on the pick up date and number of Days 
- * @param noOfDays (integer) - number of days for rental
+ * @param noOfDays (Number) - number of days for rental
  * @param pickUp date (date) - pick up date
  * @param roadAsst (Boolean) - Roadside assistance selection
  */
@@ -243,20 +245,33 @@ function getCheckoutDate(checkInDate, noOfNights) {
 
 /* This function is to validate non numeric character at the starting of the field and set error flag
  * populate error message field
- * @param (number) - user entered number of Scoops   
+ * @param numNights(Number) - user entered number of nights  
+ * @param selectRoomTypeField(string) - room type
+ * @param selectNoOfAdultsField(string) - no of adults
+ * @param inputCheckInDateField(date) - check in date
+ * @param errorMsgIdField (string) - hold error message pointer to p tag
+ * @param canRoomHold (boolean) - hold the status of room based on the selected number of individuals
  */
-function checkNumeric(numNights, selectRoomTypeField, selectNoOfAdultsField, selectNoOfChildField, errorMsgIdField, canRoomHold) {
+function checkNumeric(numNights, selectRoomTypeField, selectNoOfAdultsField, inputCheckInDateField, errorMsgIdField, canRoomHold) {
     let errorMsg, isError = false;
+    let currentDate = new Date();
+    let selectedDate = new Date(inputCheckInDateField.value);
     // set Error flag based on number validation
     if ((selectRoomTypeField.selectedIndex == -1) || (selectRoomTypeField.selectedIndex == " ")) {
         errorMsg = "Select the Room type dropdown";
         isError = true;
+    } else if (!inputCheckInDateField.value) {
+        errorMsg = "Select date from Check-in date";
+        isError = true;
+    } else if (selectedDate.getTime() < currentDate.getTime()) {
+        errorMsg = "Selected date is invalid: Pick future date from Check-in date";
+        isError = true;
     } else if ((isNaN(numNights)) || (numNights <= 0) || (numNights > 28)) {
         errorMsg = "Select valid Number of Nights ( 1 thru 28)";
         isError = true;
-    } else if (((selectNoOfAdultsField == -1) || (selectRoomTypeField.selectedIndex == " ")) &&
-        ((selectNoOfAdultsField == -1) || (selectRoomTypeField.selectedIndex == " "))) {
-        errorMsg = "Select Number of Adults or Child dropdown";
+    } else if (((selectNoOfAdultsField == -1) || (selectNoOfAdultsField.selectedIndex == " ")) &&
+        ((selectNoOfAdultsField == -1) || (selectNoOfAdultsField.selectedIndex == " "))) {
+        errorMsg = "Select Number of Adults dropdown";
         isError = true;
     } else if (!canRoomHold) {
         errorMsg = "Sorry! we do not have room for selected type";

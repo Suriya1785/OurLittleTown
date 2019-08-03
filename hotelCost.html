@@ -66,6 +66,7 @@
             <div class="container justify-content-center border">
                 <form class="form-group" id="hotelCostForm" action="hotelCost.html" method="GET" target="_self">
                     <div class="row col-md-8 mt-1 form-inline">
+                        <!-- select a room type indicates as not selected option-->
                         <label class="d-none d-md-inline col-md-3" for="selectRoomType">Room Type</label>
                         <select id="selectRoomType" class="d-none d-inline form-control col-md-6" name="selectRoomType" autofocus>
                                         <option value=" ">Select a Room type</option>
@@ -85,6 +86,7 @@
                         <input type="number" id="inputNoOfNights" name="inputNoOfNights" class="d-inline form-control col-md-6" min=1 max=28 placeholder="Number Of Nights" required>
                     </div>
                     <div class="row col-md-12 mt-1 form-inline">
+                        <!-- select no of adults indicates not selected option-->
                         <label class="d-none d-md-inline col-md-2" for="selectNoOfAdults">Number Of Adults</label>
                         <select id="selectNoOfAdults" class="d-none d-inline form-control col-md-4" name="selectNoOfAdults">
                                             <option value = 0>Select No of Adults</option>
@@ -93,6 +95,7 @@
                                             <option value = 3>3</option>
                                             <option value = 4>4</option>
                         </select>
+                        <!-- select no of child indicates NOT selected option-->
                         <label class="d-none d-md-inline col-md-2" for="selectNoOfChild">Number Of Child</label>
                         <select id="selectNoOfChild" class="d-none d-inline form-control col-md-4" name="selectNoOfChild">
                                             <option value = 0>Select if you have children</option>
@@ -102,12 +105,14 @@
                                             <option value = 4>4</option>
                         </select>
                     </div>
+                    <!-- checkbox for breakfast-->
                     <div class="form-check form-check-inline mt-1">
                         <div class="form-check">
                             <label class="form-check-label mr-3" for="inputCheckboxBrkfstYes">Breakfast Included</label>
                             <input class="form-check-input" type="checkbox" id="inputCheckboxBrkfstYes" value="Yes" name="inputCheckboxBrkfstYes">
                         </div>
                     </div>
+                    <!-- Radiobox for discounts-->
                     <div>
                         <div class="form-check form-check-inline">
                             <div class="ml-3">Discounts</div>

@@ -39,7 +39,7 @@ window.onload = function() {
         errorMsgId = errorMsgIdField.value;
         let inputPickUpDate = new Date(inputPickUpDateField.value);
         // validate User input
-        validateUserInput = checkNumeric(noOfDays, inputCarTypeField, errorMsgIdField);
+        validateUserInput = checkNumeric(noOfDays, inputCarTypeField, inputPickUpDateField, errorMsgIdField);
         if (!validateUserInput) {
             carRentalAmountField.innerHTML = " ";
             optionsRateField.innerHTML = " ";
@@ -167,13 +167,25 @@ function getTotalDue(optionRate, surcharge, totalBaseCarRental) {
 
 /* This function is to validate non numeric character at the starting of the field and set error flag
  * populate error message field
- * @param (number) - user entered number of Scoops   
+ * @param (number) - user entered number of days
+ * @param (string) - car/t type
+ * @param (date)   - cart pick up date
+ * @param (string) - Error message field to build appropriate error message
  */
-function checkNumeric(numOfdays, inputCarTypeField, errorMsgIdField) {
+function checkNumeric(numOfdays, inputCarTypeField, inputPickUpDateField, errorMsgIdField) {
     let errorMsg, isError = false;
+    let currentDate = new Date();
+    let selectedDate = new Date(inputPickUpDateField.value);
+
     // set Error flag based on number validation
     if (inputCarTypeField.selectedIndex <= 0) {
-        errorMsg = "Select the car type option'";
+        errorMsg = "Select the car type option";
+        isError = true;
+    } else if (!inputPickUpDateField.value) {
+        errorMsg = "Select the date from Pickup date";
+        isError = true;
+    } else if (selectedDate.getTime() < currentDate.getTime()) {
+        errorMsg = "Selected date is invalid: Pick future date/time from Pickup date";
         isError = true;
     } else if ((isNaN(numOfdays) || (numOfdays <= 0))) {
         errorMsg = "Enter valid number in 'Number Of days'";
