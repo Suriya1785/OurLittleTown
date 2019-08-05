@@ -6,7 +6,7 @@
 /* This function is called during window onload of the car(t) Rental calculator page and 
  * assign function to the button
  * No parameters
- * Calls: function checkNumeric(), getDropOfDate(), getAdditionalOptionRate(), getSurcharge(), getTotalDue()
+ * Calls: function checkNumeric(), getDropOfDate(), getAdditionalOptionRate(), getSurcharge(), getTotalDue(), resetForm()
  */
 "Use Strict";
 window.onload = function() {
@@ -25,6 +25,8 @@ window.onload = function() {
     let surchargeAmountField = document.getElementById("surchargeAmount");
     let dropOfDateField = document.getElementById("dropOfDate");
     const estimateTotalCostBtnField = document.getElementById("estimateTotalCostBtn");
+    const resetBtnField = document.getElementById("resetBtn");
+    resetBtnField.onclick = resetForm;
 
     estimateTotalCostBtnField.onclick = function() {
         let validateUserInput = false;
@@ -74,6 +76,21 @@ window.onload = function() {
             }
         }
     };
+
+    /* Function is to reset the results section in the hotel page
+     *  @param = None
+     * Uses the field defined with in onload function
+     * Calls to None
+     */
+
+    function resetForm() {
+        carRentalAmountField.innerHTML = " ";
+        optionsRateField.innerHTML = " ";
+        surchargeAmountField.innerHTML = " ";
+        totalDueField.innerHTML = " ";
+        dropOfDateField.innerHTML = " ";
+        errorMsgIdField.innerHTML = " ";
+    }
 }
 
 /*Function to calculate the base car rental based on the car type chosen

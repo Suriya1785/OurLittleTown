@@ -6,7 +6,7 @@
 /* This function is called during window onload of the Hotel Cost calculator page and 
  * assign function to the button
  * No parameters
- * Calls: canRoomHold(), checkNumeric(), getRoomCost(), getBreakfastCost(), getDiscount()
+ * Calls: canRoomHold(), checkNumeric(), getRoomCost(), getBreakfastCost(), getDiscount(), resetForm()
  */
 "Use Strict";
 window.onload = function() {
@@ -32,6 +32,8 @@ window.onload = function() {
     let totalRoomCostField = document.getElementById("totalRoomCost");
     const estimateTotalCostBtnField = document.getElementById("estimateTotalCostBtn");
     let inclusiveDateField = document.getElementById("inclusiveDate")
+    const resetBtnField = document.getElementById("resetBtn");
+    resetBtnField.onclick = resetForm;
 
     estimateTotalCostBtnField.onclick = function() {
         let validateUserInput = false;
@@ -116,7 +118,23 @@ window.onload = function() {
             }
         }
     };
+
+    /* Function is to reset the results section in the hotel page
+     *  @param = None
+     * Uses the field defined with in onload function
+     * Calls to None
+     */
+
+    function resetForm() {
+        totalRoomCostField.innerHTML = " ";
+        discountField.innerHTML = " ";
+        taxField.innerHTML = " ";
+        totalCostField.innerHTML = " ";
+        inclusiveDateField.innerHTML = " ";
+        errorMsgIdField.innerHTML = " ";
+    }
 }
+
 
 
 /*Function to find out whether selected roomtype can hold number of individuals  
